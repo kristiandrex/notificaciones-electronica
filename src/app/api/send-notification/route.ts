@@ -14,7 +14,11 @@ export async function POST() {
   );
 
   for (const subscription of subscriptions) {
-    await webpush.sendNotification(subscription);
+    try {
+      await webpush.sendNotification(subscription);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return Response.json({ success: true });
